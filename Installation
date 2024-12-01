@@ -77,15 +77,126 @@ sudo docker ps
 # download deploy and start the required components.
 kooker start 
 
+kooker:[kooker]$ kooker start
+
+  Checking k3d cluster and user context...
+
+  Creating k3d cluster without traefik...
+
+INFO[0000] portmapping '8443:443' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy]
+INFO[0000] portmapping '8090:8090' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy]
+INFO[0000] portmapping '8080:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy]
+INFO[0000] Prep: Network
+INFO[0000] Created network 'k3d-kooker'
+INFO[0000] Created image volume k3d-kooker-images
+INFO[0000] Starting new tools node...
+INFO[0001] Creating node 'k3d-kooker-server-0'
+INFO[0001] Pulling image 'ghcr.io/k3d-io/k3d-tools:5.4.6'
+INFO[0006] Pulling image 'docker.io/rancher/k3s:v1.24.4-k3s1'
+INFO[0006] Starting Node 'k3d-kooker-tools'
+INFO[0044] Creating LoadBalancer 'k3d-kooker-serverlb'
+INFO[0046] Pulling image 'ghcr.io/k3d-io/k3d-proxy:5.4.6'
+INFO[0055] Using the k3d-tools node to gather environment information
+INFO[0055] HostIP: using network gateway 172.18.0.1 address
+INFO[0055] Starting cluster 'kooker'
+INFO[0055] Starting servers...
+INFO[0055] Starting Node 'k3d-kooker-server-0'
+INFO[0064] All agents already running.
+INFO[0064] Starting helpers...
+INFO[0064] Starting Node 'k3d-kooker-serverlb'
+INFO[0071] Injecting records for hostAliases (incl. host.k3d.internal) and for 2 network members into CoreDNS configmap...
+INFO[0073] Cluster 'kooker' created successfully!
+INFO[0073] You can now use it like this:
+kubectl cluster-info
+        Switched to context "k3d-kooker".
+✓ k3d cluster is running and kubectl context has been set.
+
+  Initiating deployment of ingress-nginx ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=ingress-nginx --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ ingress-nginx installed
+
+  Initiating deployment of minio ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=minio --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ minio installed
+
+  Initiating deployment of artifacts-server ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=artifacts-server --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ artifacts-server installed
+
+  Initiating deployment of cert-manager ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=cert-manager --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ cert-manager installed
+
+  Initiating deployment of punch-operator-crds ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=punch-operator-crds --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ punch-operator-crds installed
+
+  Initiating deployment of punch-operator ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=punch-operator --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ punch-operator installed
+
+  Initiating deployment of punch-board ...
+  kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=punch-board --deployment-path /home/devops/kooker/charts  --log-level ERROR
+✓ punch-board installed
+kooker:[kooker]$
+
+
+
+
+
 # Expose all the required services to your host. This requires a sudoer
 # password to patch your /etc/host file.
 kooker expose 
+kooker:[kooker]$ kooker expose
+  Exposing deployed services...
+kooker:[kooker]$ cat /etc/hosts
+127.0.0.1 localhost
+127.0.1.1 kastserver
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost
+fe00:: ip6-localnet
+ff00:: ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+##################################################################
+# Content under this line is handled by hostctl. DO NOT EDIT.
+##################################################################
+
+# profile.on kooker
+127.0.0.1 minio-api.punch
+127.0.0.1 minio.punch
+127.0.0.1 artifacts-server.punch
+127.0.0.1 board.punch
+# end
+kooker:[kooker]$
+
+
 
 # Just checking
 kooker status
 
+kooker:[kooker]$ kooker status
+ingress-nginx           READY
+minio                   READY
+artifacts-server        READY
+cert-manager            READY
+punch-operator-crds     READY
+punch-operator          READY
+punch-board             READY
+kooker:[kooker]$
+
 # Get the information about what is there and what are the exposed URLs
 kooker info
+
+kooker:[kooker]$ kooker info
+✓ minio: http://minio-api.punch:8080
+✓ minio: http://minio.punch:8080
+✓ artifacts-server: http://artifacts-server.punch:8080
+✓ punch-board: http://board.punch:8080
+kooker:[kooker]$
+
 
 Once components are up, you can visit the various UI, 
 for instance 
@@ -93,7 +204,35 @@ http://dashboard.punch:8080 or
 http://board.punch:8080 
 (if you selected the punch or hub application).
 
+sudo apt install net-tools
 
+kooker:[kooker]$ netstat -ptlun
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:8443            0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.1:42001         0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:8090            0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:6443            0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -
+tcp6       0      0 :::8443                 :::*                    LISTEN      -
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+tcp6       0      0 :::8080                 :::*                    LISTEN      -
+tcp6       0      0 :::8090                 :::*                    LISTEN      -
+tcp6       0      0 ::1:6010                :::*                    LISTEN      -
+udp        0      0 127.0.0.54:53           0.0.0.0:*                           -
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           -
+udp        0      0 192.168.120.233:68      0.0.0.0:*                           -
+kooker:[kooker]$
+
+
+
+SSH Tunnel Command
+ssh -L 8888:localhost:22 devops@192.168.120.233
 
 
 
