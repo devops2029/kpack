@@ -140,6 +140,7 @@ kubectl cluster-info
 ✓ punch-board installed
 kooker:[kooker]$
 
+kastctl install --kpack-path /home/devops/kooker/kpack --kpack .kpack --component=jupyterhub --deployment-path /home/devops/kooker/charts  --log-level ERROR
 
 
 
@@ -232,7 +233,10 @@ kooker:[kooker]$
 
 
 SSH Tunnel Command
-ssh -L 8888:localhost:22 devops@192.168.120.233
+ssh -L 8080:localhost:8080 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null devops@192.168.120
+.233
+
+
 
 
 
