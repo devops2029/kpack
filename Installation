@@ -60,4 +60,29 @@ Next steps:
 
 ✓ Installation completed
 
+# source activate.sh
+kooker kpack kpack/kpack.yaml ;
+kooker kpack kpack/kpack.punch.yaml ;
+kooker kpack kpack/kpack.hub.yaml ;
+
+# download deploy and start the required components.
+kooker start 
+
+# Expose all the required services to your host. This requires a sudoer
+# password to patch your /etc/host file.
+kooker expose 
+
+# Just checking
+kooker status
+
+# Get the information about what is there and what are the exposed URLs
+kooker info
+
+
+
+
+
+
+
+
 
