@@ -65,8 +65,14 @@ kooker kpack kpack/kpack.yaml ;
 kooker kpack kpack/kpack.punch.yaml ;
 kooker kpack kpack/kpack.hub.yaml ;
 
+----------------------------------------------------
 sudo apt  install docker.io
 sudo gpasswd -a devops docker
+newgrp docker
+groups $USER
+sudo chmod 666 /var/run/docker.sock
+sudo docker ps
+---------------------------------------------------
 
 # download deploy and start the required components.
 kooker start 
