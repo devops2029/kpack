@@ -78,6 +78,11 @@ kooker status
 # Get the information about what is there and what are the exposed URLs
 kooker info
 
+Once components are up, you can visit the various UI, 
+for instance 
+http://dashboard.punch:8080 or 
+http://board.punch:8080 
+(if you selected the punch or hub application).
 
 
 
