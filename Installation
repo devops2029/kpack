@@ -1,0 +1,63 @@
+git clone https://github.com/punchplatform/kooker.git
+cd kooker/
+./install.sh
+
+  kooker installation
+✔ K3d has been installed.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 14.3M  100 14.3M    0     0  2542k      0  0:00:05  0:00:05 --:--:-- 2710k
+linux-amd64/
+linux-amd64/helm
+linux-amd64/LICENSE
+linux-amd64/README.md
+✔ Helm has been installed.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 12.1M  100 12.1M    0     0  2020k      0  0:00:06  0:00:06 --:--:-- 2701k
+✔ Yq has been installed.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   194  100   194    0     0     85      0  0:00:02  0:00:02 --:--:--    85
+100 10.6M  100 10.6M    0     0  91476      0  0:02:01  0:02:01 --:--:-- 1565k
+kastctl
+"opensearch" has been added to your repositories
+"punch" has been added to your repositories
+"elastic" has been added to your repositories
+"strimzi" has been added to your repositories
+"kubernetes-dashboard" has been added to your repositories
+"minio" has been added to your repositories
+"jetstack" has been added to your repositories
+"prometheus-community" has been added to your repositories
+"grafana" has been added to your repositories
+"codecentric" has been added to your repositories
+"ingress-nginx" has been added to your repositories
+"jupyterhub" has been added to your repositories
+"mlflow" has been added to your repositories
+"bitnami" has been added to your repositories
+✔ Kastctl and his prerequisites has been installed.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 45.7M  100 45.7M    0     0  2167k      0  0:00:21  0:00:21 --:--:-- 2031k
+✔ Kubectl has been installed.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 3405k  100 3405k    0     0   845k      0  0:00:04  0:00:04 --:--:--  942k
+LICENSE
+README.md
+hostctl
+✔ Hostctl has been installed.
+✔ Your platform has all the required packages.
+
+Next steps:
+  0/ Source your activate.sh source activate.sh
+  1/ Start the kooker with kooker --start
+  2/ Expose your services locally with kooker --expose
+  3/ In case of doubt kooker --status
+  4/ Get accessible endpoints kooker --info
+
+✓ Installation completed
+
+
